@@ -59,5 +59,31 @@ def interpolated(x: array, y: array):
     
     return _y
 
+def cumlative(x: array, func: float, var1: float, var2: float):
+    integral = array([])
+    for i in range(len(x)):
+        inte = quad(func,min(x),x[i],(var1, var2))
+        integral = np.append(integral, inte[0])
+    return integral
+
+
+def rand_gen(c_rand: array, c: array, x: array):
+    _x = array([])
+    for i in range(len(c)-1):
+
+        inter = x[i] + (c_rand[i] - c[i])*(x[i+1] - x[i])/(c[i+1] - c[i])
+        
+        if c_rand[i] >= c[i] and c_rand[i] <= c[i+1]:
+            _x = np.append(_x, inter)
+        
+        else:
+            for j in range(len(c)-1):
+
+                inter2 = x[j] + (c_rand[i] - c[j])*(x[j+1] - x[j])/(c[j+1] - c[j])
+                
+                if c_rand[i] >= c[j] and c_rand[i] <= c[j+1]:
+                    _x = np.append(_x, inter2)
+                    break
+    return _x
     
 
